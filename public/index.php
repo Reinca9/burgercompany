@@ -22,11 +22,23 @@ $admin = false;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../traitement/style.css">
+    <script src="https://kit.fontawesome.com/bd1f979c00.js" crossorigin="anonymous"></script>
 
 </head>
 
 <body>
     <main>
+        <h1>BURGER COMPANY</h1>
+        <nav>
+        <a href="">Menu</a>
+        <a href="">Contactez nous</a>
+        <i class="fa-brands fa-facebook"></i>
+        <i class="fa-brands fa-twitter"></i>
+        <i class="fa-brands fa-instagram"></i>
+        <img src="../traitement/img/3081098 1.png" alt="">
+        
+    
+        </nav>
         <?php
     if (isset ($_SESSION ['email']) && isset($_SESSION['mdp'])){
     $login = $_SESSION['email'];
@@ -35,25 +47,30 @@ $admin = false;
     }
 
 
-    if (isset ($_SESSION['id_role']) && $_SESSION['id_role'] == 2  ){
-            $admin = true;
-            if($admin == true){?>
-        <p id="salutuser">Salut Admin</p>
+    if (isset ($_SESSION['id_role']) && $_SESSION['id_role'] == 1  ){
+            
+        {    ?>
         <button><a id="deco" href="../models/deco.php">Deconnexion</a></button>
-
-
-        <?php }} 
-
-            else { ?>
-        <button><a id="deco" href="../models/deco.php">Deconnexion</a></button>
-        <p id="salutuser">Bonjour cher utilisateur</p>
+        <p id="salutuser">Bonjour cher client</p>
         <?php
-} 
+            } 
+
+         }
+
+             
 ?>
-        <div id="divpanier">
+        
             <button id="panier">Votre panier</button>
-            <img id="imgpanier" src="../traitement\img\3081098 1.png" alt="">
-        </div>
+            <div>
+                <img src="../traitement\img\burger2.png" alt="">
+                <a href="">Burgers</a>
+                <img src="../traitement\img\pizza1.png" alt="">
+                <a href="">Sandwich</a>
+                <img src="" alt="">
+                <a href="">Frittes</a>
+                
+            </div>
+       
     </main>
 
 </body>

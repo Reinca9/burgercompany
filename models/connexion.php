@@ -46,23 +46,24 @@ echo 'mot de passe invalide';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../traitement/style.css">
+    <link rel="stylesheet" href="../traitement/styleco.css">
 </head>
 
 <body>
     <main>
         <form id='formregister' method="POST">
-
-            <div id="seco">
-                <button id="emailco"> Email
+    <div id="emailco">
+                <button > Email
                     <input type="email" placeholder="Entrez votre e-mail" name="email" required>
                 </button>
-
-                <button id="mdpco"> Mot de passe
+</div>
+<div id="mdpco">
+                <button > Mot de passe
                     <input type="password" placeholder="Entrer le mot de passe" name="mdp" required>
                 </button>
-
-                <button><input type="submit" id='submit' value='Se connecter'></button>
+</div>
+<div id='submit'>
+                <button><input type="submit"  value='Se connecter'></button>
             </div>
         </form>
         <button id="retouracc"><a href="../public/index.php">Retour à l'accueil</a></button>

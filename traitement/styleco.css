@@ -1,0 +1,28 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    height: 95vh;
+    width: 95%;
+    
+    grid-template-columns: repeat 5(20%);
+    grid-template-rows:repeat 5(20%);
+}
+
+main {
+    display: flex;
+    border: solid black 5px;
+    width: 95%;
+    height: 30%;
+    background-image: url(img/Untitled\ \(3\).png);
+}
+#emailco{
+   
+}
+#mdpco{
+    
+}
+#submit{
+
+}

@@ -4,8 +4,10 @@ box-sizing: border-box;
 body{
     height: 95vh;
     width: 100%;
+    
 }
-
-a {
-    text-decoration: none;
+main{
+    background-image: url(../traitement/img/Untitled\ \(3\).png);
+    border: solid black 5px;
+    display: grid;
 }
