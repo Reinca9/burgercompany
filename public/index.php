@@ -29,15 +29,25 @@ $admin = false;
 <body>
     <main>
         <h1>BURGER COMPANY</h1>
-        <nav>
-        <a href="">Menu</a>
-        <a href="">Contactez nous</a>
+        <nav>  
+            <div id="login">
+        <button ><a id="connexion" href="">Connexion</a></button>
+        <button ><a id="inscription"href="">Inscription</a></button>
+        </div>
+        <div id="divmenuiconburger">
+            <img id="menuburger"src="../traitement/img/Group (3).png" alt="">
+        <a id="menu" href="">Menu</a>
+        </div> 
+        <a id="ctc"href="">Contactez nous</a>
+        <div>
         <i class="fa-brands fa-facebook"></i>
         <i class="fa-brands fa-twitter"></i>
         <i class="fa-brands fa-instagram"></i>
-        <img src="../traitement/img/3081098 1.png" alt="">
-        
-    
+        </div>
+        <div id="panierdiv">
+        <img id="panier"src="../traitement/img/3081098 1.png" alt="">
+        <div id="carrénoir"><a href="">Click & collect</a></div>
+        </div>
         </nav>
         <?php
     if (isset ($_SESSION ['email']) && isset($_SESSION['mdp'])){
@@ -60,15 +70,20 @@ $admin = false;
              
 ?>
         
-            <button id="panier">Votre panier</button>
-            <div>
-                <img src="../traitement\img\burger2.png" alt="">
+            
+            <div id="choix3">
+                <div id="burgers">
+                <img class="iconfood"src="../traitement\img\burger2.png" alt="">
                 <a href="">Burgers</a>
-                <img src="../traitement\img\pizza1.png" alt="">
+                </div>
+                <div id="sandwich">
+                <img id="sandwichpng" src="../traitement\img\pizza1.png" alt="">
                 <a href="">Sandwich</a>
-                <img src="" alt="">
+                </div>
+                <div id="frites">
+                <img class="iconfrites"src="../traitement\img\Group.png" alt="">
                 <a href="">Frittes</a>
-                
+                </div>
             </div>
        
     </main>

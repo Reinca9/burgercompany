@@ -17,12 +17,7 @@ main {
     height: 30%;
     background-image: url(img/Untitled\ \(3\).png);
 }
-#emailco{
-   
-}
-#mdpco{
-    
-}
-#submit{
-
+img{
+    width: 30px;
+    height: 30px;
 }
