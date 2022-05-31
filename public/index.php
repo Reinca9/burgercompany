@@ -29,11 +29,13 @@ $admin = false;
 <body>
     <main>
         <h1>BURGER COMPANY</h1>
-        <nav>  
-            <div id="login">
-        <button ><a id="connexion" href="">Connexion</a></button>
-        <button ><a id="inscription"href="">Inscription</a></button>
+        <div id="login">
+        <button id="connexion"  ><a href="">Connexion</a></button>
+        
+        <button id="inscription" ><a href="">Inscription</a></button>
         </div>
+        <nav>  
+            
         <div id="divmenuiconburger">
             <img id="menuburger"src="../traitement/img/Group (3).png" alt="">
         <a id="menu" href="">Menu</a>
