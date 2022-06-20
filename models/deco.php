@@ -2,5 +2,5 @@
 session_start();
 session_destroy();
 session_start();
-header('Location:../models/connexion.php');
+header('Location:../public/index.php');
 ?>
