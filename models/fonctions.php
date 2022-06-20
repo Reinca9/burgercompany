@@ -47,6 +47,7 @@ function selectCategory($bdd){
             $query = $bdd->prepare($selectStr);
             $query->execute();
             $queryArray = $query->fetchAll();
+            return $querryArray;
 }
 function insererproduit ($bdd){
 if (isset($_POST['nom'])){
