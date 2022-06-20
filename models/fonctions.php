@@ -1,101 +1,130 @@
 <?php
 
-include ('../models/connexionbdd.php');
+include ('connexionbdd.php');
 
-function inscription($nom, $prenom, $age, $tel, $email, $adresse, $mdp, $ville, $bdd){
-    
-$ok =  false;
-if(isset($_POST['email'])){
-$mdp = strip_tags($_POST['mdp']);
-$nom = strip_tags($_POST['nom']);
-$prenom = strip_tags($_POST['prenom']);
-$email = strip_tags($_POST['email']);
-$age = strip_tags($_POST['age']);
-$adresse = strip_tags($_POST['adresse']);
-$telephone = strip_tags($_POST ['telephone']);
-$mdp2 = strip_tags($_POST['mdp2']);
-$ville = strip_tags($_POST['ville']);
-
-
-if ($_POST['mdp'] == $_POST['mdp2']) {
-
-$userstr = 'SELECT * FROM user';
-$userquery = $bdd->prepare($userstr);
-$userquery->execute();
-$bdduser = $userquery->fetchAll();
-foreach ($bdduser as $resultat){
-  if ($email == $resultat ['email'])
-  $ok =  true;
-}
-}
-$nom = $_POST['nom'];
-    $prenom = $_POST['prenom'];
-    $age = $_POST['age'];
-    $tel = $_POST['telephone'];
-    $email = $_POST['email'];
-    $adresse = $_POST['adresse'];
-    $mdp = $_POST['mdp'];
-    $ville = $_POST['ville'];
-    if ($_POST['mdp'] == $_POST['mdp2']) {
-
-$userstr = 'SELECT * FROM user';
-$userquery = $bdd->prepare($userstr);
-$userquery->execute();
-$bdduser = $userquery->fetchAll();
-foreach ($bdduser as $resultat){
-  if ($email == $resultat ['email'])
-  $ok =  true;
-    }
-        }
-$mdp = password_hash($mdp, PASSWORD_BCRYPT);
-       
-        
-if (isset($prenom, $age, $tel, $email, $email, $adresse, $mdp, $ville)){
-    
-    
-    $queryStr ="INSERT INTO user (id_user, nom, prenom, age, telephone, email, adresse, mdp, id_ville, id_role) 
-    VALUES (null, :nom, :prenom, :age, :telephone, :email, :adresse, :mdp, :id_ville, 1)";
-    $query = $bdd->prepare($queryStr);
-    $query->bindValue(':nom', $nom, PDO::PARAM_STR);
-    $query->bindValue(':prenom', $prenom, PDO::PARAM_STR);
-    $query->bindValue(':age', $age, PDO::PARAM_INT);
-    $query->bindValue(':telephone', $tel, PDO::PARAM_STR);
-    $query->bindValue(':email', $email, PDO::PARAM_STR);
-    $query->bindValue(':adresse', $adresse, PDO::PARAM_STR);
-    $query->bindValue(':mdp', $mdp, PDO::PARAM_STR);
-    $query->bindValue(':id_ville', $ville, PDO::PARAM_STR);
-    $query->execute();
-   }
-
-
+function getUsers($bdd){
+  $userstr = 'SELECT * FROM user';
+  $userquery = $bdd->prepare($userstr);
+  $userquery->execute();
+  $bdduser = $userquery->fetchAll();
+  return $bdduser;
 }
 
+function getVilleByNom($bdd, $nom){
+  $selectstr = 'SELECT * FROM ville WHERE ville_nom=:ville';
+  $userquery = $bdd->prepare($selectstr);
+  $userquery->bindValue(':ville', $nom, PDO::PARAM_STR);
+  $userquery->execute();
+  $bddarray = $userquery->fetchAll();
+  return $bddarray;
 }
 
+function setNewUser($bdd, $mdp, $nom, $prenom, $email, $age, $adresse, $telephone, $ville_id){
+  $queryStr = 'INSERT INTO user (ID_user,mdp, ID_role, nom, prenom, id_ville, email, age, adresse, telephone) 
+  VALUES (null,:mdp, 1, :nom, :prenom,:ville, :email, :age, :adresse, :telephone)';
+  $query = $bdd->prepare($queryStr);
+  $query->bindValue(':mdp', $mdp, PDO::PARAM_STR);
+  $query->bindValue(':nom', $nom, PDO::PARAM_STR);
+  $query->bindValue(':prenom', $prenom, PDO::PARAM_STR);
+  $query->bindValue(':email', $email, PDO::PARAM_STR);
+  $query->bindValue(':age', $age, PDO::PARAM_INT);
+  $query->bindValue(':adresse', $adresse, PDO::PARAM_STR);
+  $query->bindValue(':telephone', $telephone, PDO::PARAM_INT);
+  $query->bindValue(':ville', $ville_id, PDO::PARAM_INT);
+  $query->execute();  
+}
 
-
-
-function afficheruser($bdd){
-
-
-
-$selectStr = 'SELECT*FROM user';
+function verifUser($bdd, $email){
+    $userstr = 'SELECT * FROM user WHERE email=:email';
+    $userquery = $bdd->prepare($userstr);
+    $userquery->bindValue(':email', $email, PDO::PARAM_STR);
+    $userquery->execute();
+    $bdduser = $userquery->fetch();
+    return $bdduser;
+}
+function selectCategory($bdd){
+            $selectStr = "SELECT * FROM catégorie";
+            $query = $bdd->prepare($selectStr);
+            $query->execute();
+            $queryArray = $query->fetchAll();
+}
+function insererproduit ($bdd){
+if (isset($_POST['nom'])){
+$insert = "INSERT INTO produit (id_produit, nom, prix, id_categorie, id_ingredient) 
+VALUES (null, :nom, :prix, :id_categorie, :id_ingredient)";
+$query = $bdd->prepare($insert);
+$query->bindValue(':nom', $nom, PDO::PARAM_STR);
+$query->bindValue(':prix', $prix, PDO::PARAM_INT);
+$query->bindValue(':id_categorie', $categorie, PDO::PARAM_STR);
+$query->bindValue(':id_ingredient', $ingredient, PDO::PARAM_STR);
+$query->execute();
+}
+}
+function selectcategories ($bdd){
+ $selectStr = "SELECT * FROM catégorie";
 $query = $bdd->prepare($selectStr);
 $query->execute();
 $queryArray = $query->fetchAll();
-      echo "<p id='userlist'>Listes des utilisateurs</p>";
 
-foreach($queryArray as $result){
-    echo "<table>";
-  
-echo "<tr>";
-echo "<td> {$result['nom']}</td>";
-echo "<td> {$result['prenom']}</td>";
-echo "<td> {$result['age']}</td>";
-echo "<td> <a id='delete' href='delete.php?ID=$result[ID_user]'>Supprimer</a></td>";
-echo "<td> <a  href='update.php?ID=$result[ID_user]'>Mettre à jour</a></td>";
-echo "</tr>";
-echo "</table>";
+echo    "<select name = 'id_categorie' id='selectp2'>";
+echo    "<option>Catégorie de l'ingrédient</option>";
+foreach ($queryArray as $result) {
+    
+echo    "<option value=".$result['id_categorie']."> ".  $result['nom'] . "</option>";
+
 }
+echo    "</select>";
+
 }
+function selectingredients ($bdd){
+  $selectStr = "SELECT*FROM ingredient";
+  $query = $bdd->prepare($selectStr);
+  $query->execute();
+  $queryArray = $query->fetchAll();
+  echo "<input type='radio' name = 'id_ingredient'";
+  echo "<option>Ingrédients contenus dans le produit</option>";
+  foreach ($queryArray as $result){
+  echo "<option value=".$result['id_ingredient'].">".$result['nom'] ."</option>";
+  }
+  echo "</select>";
+}
+
+function check_user_status($bdd){
+$authok = false;
+if($authok == false){?>
+<a id="connexion" href="index.php?page=connexion">Connexion</a>
+<a id="inscription" href="index.php?page=inscription">Inscription</a>
+<?php 
+}
+if (isset ($_SESSION ['email']) && isset($_SESSION['mdp'])){
+$login = $_SESSION['email'];
+$mdp = $_SESSION ['mdp'];
+$authok = true;
+$admin = false;
+}
+
+
+if (isset ($_SESSION['id_role']) && $_SESSION['id_role'] == 1  ){
 ?>
+<p id="salutuser">Bonjour cher client</p>
+<?php
+} 
+if (isset ($_SESSION ['email']) && isset($_SESSION['mdp'])){
+$login = $_SESSION['email'];
+$mdp = $_SESSION ['mdp'];
+$authok = true;
+}
+}    
+
+function admincheck($bdd){
+if (isset ($_SESSION['id_role']) && $_SESSION['id_role'] == 2){
+$admin = true;
+if($admin == true){?>
+<div id="adminlogin">
+    <a id="ajouterproduit" href="index.php?page=ajouterproduit">Ajouter un produit</a>
+    <hr>
+    <p id="salutuser">Bonjour Administrateur</p>
+    <hr>
+    <a id="deco" href="../models/deco.php">Se deconnecter</a>
+</div>
+<?php } }}?>
